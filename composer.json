@@ -1,0 +1,18 @@
+{
+	"keywords" : [
+		"radical-php"
+	],
+	"autoload" : {
+		"psr-0" : {
+			"Radical" : "src"
+		}
+	},
+	"name" : "splitice/radical-cli",
+	"type" : "library",
+	"require" : {
+		"php" : ">=5.4",
+		"splitice/radical-basic" : "dev-master",
+		"splitice/radical-common" : "dev-master"
+	},
+	"minimum-stability" : "dev"
+}
