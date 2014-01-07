@@ -12,7 +12,20 @@ class Runner {
 	}
 	
 	private function getClass(){
-		$class = '\\'.$this->ns.'\\CLI\\Cron\\Jobs\\'.$this->job;
+		$ns = $this->ns;
+		if($this->ns === null){
+			$ns = '*';
+		}
+		$class = '\\'.$ns.'\\CLI\\Jobs\\Module\\'.$this->module;
+		
+		if($this->ns === null){
+			$classes = \Radical\Core\Libraries::get($class);
+			if($classes){
+				return $classes[0];
+			}
+			return null;
+		}
+		
 		return $class;
 	}
 	
