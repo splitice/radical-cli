@@ -16,7 +16,7 @@ class Runner {
 		if($this->ns === null){
 			$ns = '*';
 		}
-		$class = '\\'.$ns.'\\CLI\\Jobs\\Module\\'.$this->module;
+		$class = '\\'.$ns.'\\CLI\\Cron\\Jobs\\'.$this->job;
 		
 		if($this->ns === null){
 			$classes = \Radical\Core\Libraries::get($class);
