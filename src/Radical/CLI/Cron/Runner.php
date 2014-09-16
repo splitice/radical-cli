@@ -2,11 +2,15 @@
 namespace Radical\CLI\Cron;
 
 use Radical\Basic\ClassInterface;
+use Splitice\EventTrait\THookable;
+
 class Runner {
+    use THookable;
 	private $job;
 	private $ns;
-	
-	function __construct($job, $ns = null){
+
+    function __construct($job, $ns = null){
+        $this->hookInit();
 		$this->job = $job;
 		$this->ns = $ns;
 	}
@@ -42,7 +46,9 @@ class Runner {
 		$class = $this->getClass();
 		$instance = new $class();
 		if($instance instanceof Jobs\Interfaces\ICronJob){
+            $this->call_action('before_run', array('class'=>$class, 'arguments'=>$arguments));
 			$instance->Execute($arguments);
+            $this->call_action('after_run', array('class'=>$class, 'arguments'=>$arguments));
 		}
 	}
 }
