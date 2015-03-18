@@ -2,6 +2,7 @@
 namespace Radical\CLI\Cron;
 
 use Radical\Basic\ClassInterface;
+use Radical\Core\CoreInterface;
 use Splitice\EventTrait\THookable;
 
 class Runner {
@@ -24,6 +25,9 @@ class Runner {
 		
 		if($this->ns === null){
 			$classes = \Radical\Core\Libraries::get($class);
+            if(empty($classes)){
+                throw new \Exception("No class found matching: ".$class);
+            }
 			if($classes){
 				return $classes[0];
 			}
@@ -35,7 +39,7 @@ class Runner {
 	
 	function isValid(){
 		if(class_exists($this->getClass())){
-			if(ClassInterface::oneof($this->getClass(), '\\Radical\\CLI\\Cron\\Jobs\\Interfaces\\ICronJob')){
+			if(CoreInterface::oneof($this->getClass(), '\\Radical\\CLI\\Cron\\Jobs\\Interfaces\\ICronJob')){
 				return true;
 			}
 		}
@@ -43,6 +47,9 @@ class Runner {
 	}
 	
 	function run(array $arguments = array()){
+        if(!$this->isValid()){
+            throw new \Exception("Not a valid job: ".$this->job);
+        }
 		$class = $this->getClass();
 		$instance = new $class();
 		if($instance instanceof Jobs\Interfaces\ICronJob){

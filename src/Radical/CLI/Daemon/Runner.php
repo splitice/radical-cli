@@ -2,6 +2,8 @@
 namespace Radical\CLI\Daemon;
 
 use Radical\Basic\ClassInterface;
+use Radical\Core\CoreInterface;
+
 class Runner {
 	private $module;
 	private $ns;
@@ -31,7 +33,7 @@ class Runner {
 	
 	function isValid(){
 		if(class_exists($this->getClass())){
-			if(ClassInterface::oneof($this->getClass(), '\\Radical\\CLI\\Daemon\\Module\\Interfaces\\IModuleJob')){
+			if(CoreInterface::oneof($this->getClass(), '\\Radical\\CLI\\Daemon\\Module\\Interfaces\\IModuleJob')){
 				return true;
 			}
 		}
