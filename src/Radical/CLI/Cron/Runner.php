@@ -1,7 +1,6 @@
 <?php
 namespace Radical\CLI\Cron;
 
-use Radical\Basic\ClassInterface;
 use Radical\Core\CoreInterface;
 use Splitice\EventTrait\THookable;
 

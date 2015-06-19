@@ -1,7 +1,6 @@
 <?php
 namespace Radical\CLI\Daemon;
 
-use Radical\Basic\ClassInterface;
 use Radical\Core\CoreInterface;
 
 class Runner {
